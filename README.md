@@ -1,2 +1,2 @@
-# multi-agent-simulation
-Multi-agent system simulation in order to solve a urban mobility problem
+# Multi Agent System Simulation
+Multi-agent system simulation inside Unity in order to solve a urban mobility problem.
