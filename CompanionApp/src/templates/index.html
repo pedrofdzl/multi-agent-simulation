@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+    <h1 class="text-center">MultiAgent</h1>
+
+    <div class="d-flex justify-content-between">
+        <h4 class="m">Recent Simulations</h4>
+        <a href="{% url 'sims_list' %}" class="btn btn-outline-secondary">View All</a>
+    </div>
+    <hr>
+
+    {% include '_sims_list_snippet.html' with sims=sims %}
+
+
+
+{% endblock %}

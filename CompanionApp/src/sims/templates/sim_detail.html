@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+    <div class="bg-light my-4 p-3 shadow">
+
+        <h2 class="text-center">Simulation: {{ sim.track_id }}</h2>
+        <h6><strong>Date:</strong> {{ sim.carrieout_date }}</h6>
+        <a href="{% url 'sim_delete' id=sim.pk %}" class="btn btn-danger btn-sm">Delete Simulation</a>
+    </div>
+
+
+
+    <div class="mt-4 btn-group">
+        <button id="kpiBtn" class="btn btn-outline-secondary active">KPIs</button>
+        <button id="agentsBtn" class="btn btn-outline-secondary">Agents</button>
+    </div>
+    <hr>
+
+    <table id="kpis-table" class="table table-striped-columns table-bordered text-center">
+        <thead>
+            <tr>
+                <th>Total Agents</th>
+                <th>Finished Agents</th>
+                <th>Average Time</th>
+                <th>Total Colisions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td class="fs-1">{{ sim.agent_count }}</td>
+                <td class="fs-1">{{ sim.finished_agents }}</td>
+                <td class="fs-1">{{ sim.average_agent_time|floatformat:2 }}</td>
+                <td class="fs-1">{{ sim.total_colisions }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+
+    <div id="agents-div" class="hidden">
+        <h4>Agents</h4>
+        <div class="accordion accordion-flush" id="accordionFlushAgents">
+            
+
+            {% for agent in sim.agents.all %}
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-heading{{forloop.counter}}">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse{{forloop.counter}}" aria-expanded="false" aria-controls="flush-collapse{{forloop.counter}}">
+                            Agent: {{ agent.agent_id }}
+                        </button>
+                    </h2>
+                    <div id="flush-collapse{{ forloop.counter}}" class="accordion-collapse collapse" aria-labelledby="flush-heading{{ forloop.counter }}" data-bs-parent="#accordionFlushAgents">
+                        <div class="accordion-body">
+                            <strong>Colisions:</strong> {{ agent.colisions }} <br>
+                            <strong>Total Time:</strong> {{ agent.total_time }} <br>
+                            <strong>Finished?:</strong> {{ agent.finished }} <br>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+    <script>
+        let kpiBtn = document.getElementById('kpiBtn');
+        let agentsBtn = document.getElementById('agentsBtn');
+        let agentsDiv = document.getElementById('agents-div');
+        let kpiTable = document.getElementById('kpis-table')
+
+        kpiBtn.addEventListener('click', function(){
+            // console.log('kpi showing');
+            kpiTable.classList.remove('hidden');
+            kpiBtn.classList.add('active');
+            agentsDiv.classList.add('hidden');
+            agentsBtn.classList.remove('active');
+        });
+        
+        
+        agentsBtn.addEventListener('click', function(){
+            // console.log('agents showing');
+            kpiBtn.classList.remove('active');
+            kpiTable.classList.add('hidden');
+            agentsBtn.classList.add('active');
+            agentsDiv.classList.remove('hidden');
+        });
+
+    </script>
+
+{% endblock %}

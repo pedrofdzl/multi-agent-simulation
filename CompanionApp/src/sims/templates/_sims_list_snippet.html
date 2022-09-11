@@ -1,0 +1,17 @@
+{% for sim in sims %}
+        
+<div class="bg-light my-3 p-2 shadow-sm border d-flex justify-content-between mi-container">
+    <div>
+        <h5>{{ sim.track_id }}</h5>
+        <div class="mt-4">
+            <a href="{% url 'sim_detail' id=sim.pk %}">View</a>
+        </div>
+    </div>
+    
+    <div >
+        <small class="text-muted">{{ sim.carrieout_date }}</small>
+        
+    </div>
+</div>
+
+{% endfor %}

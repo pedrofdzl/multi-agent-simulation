@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Simulations</h1>
+    <hr>
+
+    {% include '_sims_list_snippet.html' with sims=sims %}
+
+{% endblock %}
